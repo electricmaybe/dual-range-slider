@@ -5,14 +5,17 @@ This is simple JavaScript Class for Dual Range Slider. Easy to use, easy to inst
 # How it works?
 
 `npm install dual-range-slider`
+or
+`yarn add dual-range-slider`
 
 Create an HTML Markup
 
-    <div class="dual-range" data-min="20" data-max="70">
-		<span class="handle left"></span>
-		<span class="highlight"></span>
-		<span class="handle right"></span>
-	</div>
+     <div class="dual-range" id="dual-selector"
+          data-min="10"
+          data-max="30"
+          data-min-label="Min: $"
+          data-max-label="Max: $">
+     </div>
 
 then add CSS (SCSS) code to your styles
 
@@ -71,3 +74,9 @@ then add CSS (SCSS) code to your styles
         
 	}
 	
+then
+
+    window.addEventListener('DOMContentLoaded', () => {
+      let dualRangeElement = document.getElementById('dual-selector')
+      new dualRangeSlider(dualRangeElement, customCallbackFunc)
+    });
