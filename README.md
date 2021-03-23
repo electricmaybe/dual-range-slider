@@ -8,13 +8,11 @@ This is simple JavaScript Class for Dual Range Slider. Easy to use, easy to inst
 
 Create an HTML Markup
 
-`
     <div class="dual-range" data-min="20" data-max="70">
 		<span class="handle left"></span>
 		<span class="highlight"></span>
 		<span class="handle right"></span>
 	</div>
-`
 
 then add CSS (SCSS) code to your styles
 
