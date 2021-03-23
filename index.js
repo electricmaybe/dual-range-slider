@@ -87,7 +87,8 @@
             const event = new CustomEvent('dualRangeChanged', {
                 detail: {
                     min: this.handles[0].dataset.value,
-                    max: this.handles[1].dataset.value
+                    max: this.handles[1].dataset.value,
+                    callback: this.callback,
                 }
             })
 
@@ -96,9 +97,9 @@
             }
         }
     }
-
     document.addEventListener('dualRangeChanged', (evt) => {
-       this.callback(evt.detail.min, evt.detail.max)
+        const { detail: { callback, min, max } } = evt;
+        callback(min, max);
     });
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         module.exports = dualRangeSlider;
