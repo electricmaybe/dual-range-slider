@@ -97,7 +97,7 @@
         }
     }
 
-    document.addEventListener('dualRangeChanged', function(evt) {
+    document.addEventListener('dualRangeChanged', (evt) => {
        this.callback(evt.detail.min, evt.detail.max)
     });
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
