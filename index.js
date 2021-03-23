@@ -1,10 +1,10 @@
 class dualRangeSlider {
-    constructor(rangeElement) {
-        this.range = rangeElement
+    constructor(rangeElement, callback) {
+        this.range = rangeElement;
+        this.callback = callback;
         this.min = Number(rangeElement.dataset.min)
         this.max = Number(rangeElement.dataset.max)
-        this.startPos = 0
-        this.activeHandle
+        this.startPos = 0;
         this.range.innerHTML = `<outputs><min></min><max></max></outputs><controls><handle class="left"></handle><highlight></highlight><handle class="right"></handle></controls>`
         this.handles = [...this.range.querySelectorAll('handle')]
         this.min_label = this.range.querySelector('min')
@@ -95,7 +95,7 @@ class dualRangeSlider {
 }
 
 document.addEventListener('dualRangeChanged', function(evt) {
-    console.log(evt.detail.min, evt.detail.max)
+   this.callback(evt.detail.min, evt.detail.max)
 });
 
 module.exports = dualRangeSlider;
