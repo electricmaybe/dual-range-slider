@@ -68,7 +68,7 @@
             }
             this.activeHandle.dataset.value = this.calcHandleValue((newX + handleRect.width/2) / parentRect.width)
             this.range.style.setProperty(property, newX + "px");
-            this.updateLabels()
+            this.updateLabels(e)
         }
 
         updateLabels(e) {
@@ -82,10 +82,7 @@
                     callback: this.callback,
                 }
             })
-
-            if(this.range.contains(e.target) || e.target === this.range) {
-                document.dispatchEvent(event)
-            }
+            document.dispatchEvent(event)
         }
 
         calcHandleValue(percentage) {
@@ -95,7 +92,7 @@
         stopMove(evt) {
             window.removeEventListener("mousemove", this.moveListener);
             window.removeEventListener("touchmove", this.moveTouchListener);
-            this.updateLabels()
+            this.updateLabels(evt)
         }
     }
     document.addEventListener('dualRangeChanged', (evt) => {
