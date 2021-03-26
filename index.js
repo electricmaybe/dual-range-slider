@@ -74,6 +74,18 @@
         updateLabels(e) {
             this.min_label.innerHTML = this.range.dataset.minLabel + this.handles[0].dataset.value
             this.max_label.innerHTML = this.range.dataset.maxLabel + this.handles[1].dataset.value
+            
+            const event = new CustomEvent('dualRangeChanged', {
+                detail: {
+                    min: this.handles[0].dataset.value,
+                    max: this.handles[1].dataset.value,
+                    callback: this.callback,
+                }
+            })
+
+            if(this.range.contains(e.target) || e.target === this.range) {
+                document.dispatchEvent(event)
+            }
         }
 
         calcHandleValue(percentage) {
@@ -83,18 +95,7 @@
         stopMove(evt) {
             window.removeEventListener("mousemove", this.moveListener);
             window.removeEventListener("touchmove", this.moveTouchListener);
-
-            const event = new CustomEvent('dualRangeChanged', {
-                detail: {
-                    min: this.handles[0].dataset.value,
-                    max: this.handles[1].dataset.value,
-                    callback: this.callback,
-                }
-            })
-
-            if(this.range.contains(evt.target) || evt.target === this.range) {
-                document.dispatchEvent(event)
-            }
+            this.updateLabels()
         }
     }
     document.addEventListener('dualRangeChanged', (evt) => {
