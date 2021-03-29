@@ -92,7 +92,6 @@
         stopMove(evt) {
             window.removeEventListener("mousemove", this.moveListener);
             window.removeEventListener("touchmove", this.moveTouchListener);
-            this.updateLabels(evt)
         }
     }
     document.addEventListener('dualRangeChanged', (evt) => {
