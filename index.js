@@ -12,16 +12,16 @@
             this.handles = [...this.range.querySelectorAll('handle')]
             this.min_label = this.range.querySelector('min')
             this.max_label = this.range.querySelector('max')
-
+            this.parent = document.getElementsByClassName("price-range-wrapper")[0];
             this.handles.forEach(handle => {
                 handle.addEventListener('mousedown', this.startMove.bind(this))
                 handle.addEventListener('touchstart', this.startMoveTouch.bind(this))
             })
 
-            window.addEventListener('mouseup', this.stopMove.bind(this))
-            window.addEventListener("touchend", this.stopMove.bind(this))
-            window.addEventListener("touchcancel", this.stopMove.bind(this))
-            window.addEventListener("touchleave", this.stopMove.bind(this))
+            this.parent.addEventListener('mouseup', this.stopMove.bind(this))
+            this.parent.addEventListener("touchend", this.stopMove.bind(this))
+            this.parent.addEventListener("touchcancel", this.stopMove.bind(this))
+            this.parent.addEventListener("touchleave", this.stopMove.bind(this))
 
             const rangeRect = this.range.getBoundingClientRect()
             const handleRect = this.handles[0].getBoundingClientRect()
@@ -37,14 +37,14 @@
             this.startPos = e.touches[0].clientX - handleRect.x;
             this.activeHandle = e.target;
             this.moveTouchListener = this.moveTouch.bind(this)
-            window.addEventListener("touchmove", this.moveTouchListener);
+            this.parent.addEventListener("touchmove", this.moveTouchListener);
         }
 
         startMove(e) {
             this.startPos = e.offsetX;
             this.activeHandle = e.target;
             this.moveListener = this.move.bind(this)
-            window.addEventListener("mousemove", this.moveListener);
+            this.parent.addEventListener("mousemove", this.moveListener);
         }
 
         moveTouch(e) {
@@ -68,7 +68,6 @@
             }
             this.activeHandle.dataset.value = this.calcHandleValue((newX + handleRect.width/2) / parentRect.width)
             this.range.style.setProperty(property, newX + "px");
-            this.updateLabels(e)
         }
 
         updateLabels(e) {
@@ -90,8 +89,9 @@
         }
 
         stopMove(evt) {
-            window.removeEventListener("mousemove", this.moveListener);
-            window.removeEventListener("touchmove", this.moveTouchListener);
+            this.parent.removeEventListener("mousemove", this.moveListener);
+            this.parent.removeEventListener("touchmove", this.moveTouchListener);
+            this.updateLabels(evt)
         }
     }
     document.addEventListener('dualRangeChanged', (evt) => {
